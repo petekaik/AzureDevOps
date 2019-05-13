@@ -1,0 +1,14 @@
+# Pipeline for remote Windows builds
+
+trigger:
+  - master
+
+pool:
+  name: Hosted Windows Container
+
+steps:
+  - task: PowerShell@2
+    displayName: "PowerShell Script"
+    inputs:
+      targetType: filePath
+      filePath: ./HelloWorld.ps1

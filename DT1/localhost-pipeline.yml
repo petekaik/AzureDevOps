@@ -1,0 +1,14 @@
+# local windows build pipeline
+
+trigger:
+  - master
+
+pool:
+  name: Default
+
+steps:
+  - task: PowerShell@2
+    displayName: "PowerShell Script"
+    inputs:
+      targetType: filePath
+      filePath: ./HelloWorld.ps1

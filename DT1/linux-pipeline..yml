@@ -1,0 +1,14 @@
+# remote linux builds pipeline
+
+trigger:
+  - master
+
+pool:
+  name: Hosted Ubuntu 1604
+
+steps:
+  - task: Bash@3
+    displayName: "Bash Script"
+    inputs:
+      targetType: filePath
+      filePath: ./HelloWorld.sh
