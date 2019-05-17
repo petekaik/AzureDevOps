@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "Azure DevOps",
+    "description": "Azure DevOps REST API examples",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Project",
+      "item": [
+        {
+          "name": "Get builds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://dev.azure.com/{{organization}}/{{project}}/_apis/build/builds?api-version={{APIversion}}",
+              "protocol": "https",
+              "host": ["dev", "azure", "com"],
+              "path": [
+                "{{organization}}",
+                "{{project}}",
+                "_apis",
+                "build",
+                "builds"
+              ],
+              "query": [
+                {
+                  "key": "api-version",
+                  "value": "{{APIversion}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get releases",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://vsrm.dev.azure.com/{{organization}}/{{project}}/_apis/release/releases?api-version={{APIversion}}",
+              "protocol": "https",
+              "host": ["vsrm", "dev", "azure", "com"],
+              "path": [
+                "{{organization}}",
+                "{{project}}",
+                "_apis",
+                "release",
+                "releases"
+              ],
+              "query": [
+                {
+                  "key": "api-version",
+                  "value": "{{APIversion}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create work item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);\r",
+                  "postman.setEnvironmentVariable(\"WI_id\", jsonData.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json-patch+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/fields/System.Title\",\n        \"from\": null,\n        \"value\": \"Sample task\"\n    }\n]"
+            },
+            "url": {
+              "raw": "https://dev.azure.com/{{organization}}/{{project}}/_apis/wit/workitems/${{WI_type}}?api-version={{APIversion}}",
+              "protocol": "https",
+              "host": ["dev", "azure", "com"],
+              "path": [
+                "{{organization}}",
+                "{{project}}",
+                "_apis",
+                "wit",
+                "workitems",
+                "${{WI_type}}"
+              ],
+              "query": [
+                {
+                  "key": "api-version",
+                  "value": "{{APIversion}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete work item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://dev.azure.com/{{organization}}/{{project}}/_apis/wit/workitems/{{WI_id}}?api-version={{APIversion}}",
+              "protocol": "https",
+              "host": ["dev", "azure", "com"],
+              "path": [
+                "{{organization}}",
+                "{{project}}",
+                "_apis",
+                "wit",
+                "workitems",
+                "{{WI_id}}"
+              ],
+              "query": [
+                {
+                  "key": "api-version",
+                  "value": "{{APIversion}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Azure DevOps project scope REST samples"
+    },
+    {
+      "name": "Get projects",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "https://dev.azure.com/{{organization}}/_apis/projects?api-version={{APIversion}}",
+          "protocol": "https",
+          "host": ["dev", "azure", "com"],
+          "path": ["{{organization}}", "_apis", "projects"],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{APIversion}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "{{PAT}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}
